@@ -13,17 +13,19 @@ Update `codeceptjs.conf.js`
 ```js
 helpers: {
     VisualRegressionTrackerHelper: {
+        require: "@visual-regression-tracker/agent-codeceptjs",
+
         // apiUrl - URL where backend is running
-        "apiUrl": "http://localhost:4200",
+        apiUrl: "http://localhost:4200",
 
         // project - Project name or ID
-        "project": "Default project",
+        project: "Default project",
 
         // apiKey - User apiKey
-        "apiKey": "F3GCS56KVA4168HAN53YN31ASSVG",
+        apiKey: "F3GCS56KVA4168HAN53YN31ASSVG",
 
         // branch - Current git branch
-        "branchName": "develop"
+        branchName: "develop"
     },
 }
 ```

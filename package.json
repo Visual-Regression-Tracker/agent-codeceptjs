@@ -1,6 +1,6 @@
 {
   "name": "@visual-regression-tracker/agent-codeceptjs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Custom helper to integrate CondeceptJS with Visual Regression Tracker",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
