@@ -22,7 +22,7 @@ class VisualRegressionTrackerHelper extends Helper {
   async track(name: string, options: TrackOptions) {
     const helper = this._getHelper();
     const filepath = join(__dirname, `${name}-${Date.now()}.png`);
-    const image = await helper.saveScreenshot(filepath, options.fullScreen);
+    const image = await helper.saveScreenshot(filepath, options?.fullScreen);
     unlinkSync(filepath);
 
     return this.vrt.track({
