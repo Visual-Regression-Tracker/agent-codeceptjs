@@ -45,7 +45,7 @@ I.track("Additional options", {
   os: "windows",
   device: "device",
   browser: "chrome",
-  diffTollerancePercent: 13,
+  diffTollerancePercent: 1,
 });
 ```
 
