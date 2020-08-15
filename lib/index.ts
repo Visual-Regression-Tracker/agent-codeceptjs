@@ -1,3 +1,5 @@
+/* global codecept_helper */
+
 const Helper = codecept_helper;
 import { TrackOptions } from "./interfaces";
 import { unlinkSync } from "fs";
@@ -6,6 +8,15 @@ import {
   VisualRegressionTracker,
   Config,
 } from "@visual-regression-tracker/sdk-js";
+
+enum DRIVERS {
+  Playwright = "Playwright",
+  Puppeteer = "Puppeteer",
+  WebDriver = "WebDriver",
+  Appium = "Appium",
+  WebDriverIO = "WebDriverIO",
+  TestCafe = "TestCafe",
+}
 
 class VisualRegressionTrackerHelper extends Helper {
   private vrt: VisualRegressionTracker;
@@ -62,15 +73,6 @@ class VisualRegressionTrackerHelper extends Helper {
 
     throw new Error("Not supported driver");
   }
-}
-
-enum DRIVERS {
-  Playwright = "Playwright",
-  Puppeteer = "Puppeteer",
-  WebDriver = "WebDriver",
-  Appium = "Appium",
-  WebDriverIO = "WebDriverIO",
-  TestCafe = "TestCafe",
 }
 
 export = VisualRegressionTrackerHelper;
