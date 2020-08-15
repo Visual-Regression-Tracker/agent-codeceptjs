@@ -1,5 +1,7 @@
 # Native integration for [CodeceptJS](https://github.com/codecept-js/CodeceptJS) with [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker)
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3a106c1256144665ad0ab3148fb0f1e8)](https://www.codacy.com/gh/Visual-Regression-Tracker/agent-codeceptjs?utm_source=github.com&utm_medium=referral&utm_content=Visual-Regression-Tracker/agent-codeceptjs&utm_campaign=Badge_Grade)
+
 ## Install
 
 ### Add package
