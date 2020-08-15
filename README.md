@@ -1,5 +1,7 @@
 # Native integration for [CodeceptJS](https://github.com/codecept-js/CodeceptJS) with [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker)
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3a106c1256144665ad0ab3148fb0f1e8)](https://www.codacy.com/gh/Visual-Regression-Tracker/agent-codeceptjs?utm_source=github.com&utm_medium=referral&utm_content=Visual-Regression-Tracker/agent-codeceptjs&utm_campaign=Badge_Grade)
+
 ## Install
 
 ### Add package
@@ -30,23 +32,37 @@ helpers: {
 }
 ```
 
+### Update TypeScript Definitions
+
+More on this in official COdeceptJS (docs)[https://codecept.io/commands/#typescript-definitions]
+
+`npx codeceptjs def`
+
 ## Usage
 
-Default
+### Setup
 
 ```js
-I.track("Default");
+I.vrtStart();
 ```
 
-With additional options
-
 ```js
-I.track("Additional options", {
+// default
+I.vrtTrack("Default");
+
+// With additional options
+I.vrtTrack("Additional options", {
   os: "windows",
   device: "device",
   browser: "chrome",
   diffTollerancePercent: 1,
 });
+```
+
+### Setup
+
+```js
+I.vrtStop();
 ```
 
 ## Examples
