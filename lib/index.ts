@@ -15,11 +15,19 @@ class VisualRegressionTrackerHelper extends Helper {
     this.vrt = new VisualRegressionTracker(config);
   }
 
+  async vrtStart() {
+    return this.vrt.start();
+  }
+
+  async vrtStop() {
+    return this.vrt.stop();
+  }
+
   /**
    * @param name {String} name of the page you want to track
    * @param options {TrackOptions} options
    */
-  async track(name: string, options: TrackOptions) {
+  async vrtTrack(name: string, options: TrackOptions) {
     const helper = this._getHelper();
     const filepath = join(__dirname, `${name}-${Date.now()}.png`);
     const image = await helper.saveScreenshot(filepath, options?.fullScreen);
@@ -32,7 +40,7 @@ class VisualRegressionTrackerHelper extends Helper {
     });
   }
 
-  _getHelper(): any {
+  private _getHelper(): any {
     if (this.helpers[DRIVERS.Puppeteer]) {
       return this.helpers[DRIVERS.Puppeteer];
     }

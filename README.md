@@ -30,23 +30,37 @@ helpers: {
 }
 ```
 
+### Update TypeScript Definitions
+
+More on this in official COdeceptJS (docs)[https://codecept.io/commands/#typescript-definitions]
+
+`npx codeceptjs def`
+
 ## Usage
 
-Default
+### Setup
 
 ```js
-I.track("Default");
+I.vrtStart();
 ```
 
-With additional options
-
 ```js
-I.track("Additional options", {
+// default
+I.vrtTrack("Default");
+
+// With additional options
+I.vrtTrack("Additional options", {
   os: "windows",
   device: "device",
   browser: "chrome",
   diffTollerancePercent: 1,
 });
+```
+
+### Setup
+
+```js
+I.vrtStop();
 ```
 
 ## Examples
