@@ -2,6 +2,10 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3a106c1256144665ad0ab3148fb0f1e8)](https://www.codacy.com/gh/Visual-Regression-Tracker/agent-codeceptjs?utm_source=github.com&utm_medium=referral&utm_content=Visual-Regression-Tracker/agent-codeceptjs&utm_campaign=Badge_Grade)
 
+## Npm
+
+https://www.npmjs.com/package/@visual-regression-tracker/agent-codeceptjs
+
 ## Install
 
 ### Add package
@@ -61,7 +65,7 @@ I.vrtTrack("Additional options", {
 });
 ```
 
-### Setup
+### Teardown
 
 ```js
 I.vrtStop();
