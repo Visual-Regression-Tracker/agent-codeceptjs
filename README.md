@@ -31,7 +31,10 @@ helpers: {
         apiKey: "F3GCS56KVA4168HAN53YN31ASSVG",
 
         // branch - Current git branch
-        branchName: "develop"
+        branchName: "develop",
+
+        // enableSoftAssert - Log errors instead of exceptions
+        enableSoftAssert: false,
     },
 }
 ```
