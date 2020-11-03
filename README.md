@@ -53,6 +53,12 @@ More on this in official COdeceptJS (docs)[https://codecept.io/commands/#typescr
 I.vrtStart();
 ```
 
+### Teardown
+
+```js
+I.vrtStop();
+```
+
 ### Assert
 
 ```js
@@ -65,13 +71,15 @@ I.vrtTrack("Additional options", {
   device: "device",
   browser: "chrome",
   diffTollerancePercent: 1,
+  ignoreAreas: [
+    {
+      x: 10,
+      y: 10,
+      width: 200,
+      height: 200,
+    },
+  ],
 });
-```
-
-### Teardown
-
-```js
-I.vrtStop();
 ```
 
 ## Examples

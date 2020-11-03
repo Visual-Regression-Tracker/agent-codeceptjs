@@ -1,3 +1,5 @@
+import { IgnoreArea } from "@visual-regression-tracker/sdk-js";
+
 export interface TrackOptions {
   diffTollerancePercent?: number;
   os?: string;
@@ -5,4 +7,5 @@ export interface TrackOptions {
   viewport?: string;
   device?: string;
   fullScreen?: boolean;
+  ignoreAreas?: IgnoreArea[];
 }
