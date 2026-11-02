@@ -1,12 +1,15 @@
 # CodeceptJS helper for [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker)
 
-Adds `I.vrtStart()`, `I.vrtTrack()` and `I.vrtStop()` to [CodeceptJS](https://codecept.io) tests.
+[![npm](https://img.shields.io/npm/v/@visual-regression-tracker/agent-codeceptjs)](https://www.npmjs.com/package/@visual-regression-tracker/agent-codeceptjs)
+
+Adds `I.vrtStart()`, `I.vrtTrack()` and `I.vrtStop()` to [CodeceptJS](https://codecept.io) tests. The helper is built on [sdk-js](https://github.com/Visual-Regression-Tracker/sdk-js).
 
 ## Requirements
 
-- CodeceptJS 3.7+ or 4 (CodeceptJS 4 needs Node.js 22.12+), Node.js 20+
+- CodeceptJS 3.7+ or 4 (CodeceptJS 4 needs Node.js 22.12+)
+- Node.js 22 or later
 - One of the Playwright, Puppeteer, WebDriver or Appium helpers
-- Visual Regression Tracker server 5 or 6
+- Visual Regression Tracker server 5.0.8 or later; 6 is recommended
 
 ## Install
 
@@ -14,7 +17,18 @@ Adds `I.vrtStart()`, `I.vrtTrack()` and `I.vrtStop()` to [CodeceptJS](https://co
 npm install --save-dev @visual-regression-tracker/agent-codeceptjs
 ```
 
-## Configure
+## Configuration
+
+| Option | Environment variable | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| `apiUrl` | `VRT_APIURL` | yes | | URL of the server API, e.g. `http://localhost:4200` |
+| `apiKey` | `VRT_APIKEY` | yes | | API key of a user with access to the project |
+| `project` | `VRT_PROJECT` | yes | | Project name or ID |
+| `branchName` | `VRT_BRANCHNAME` | yes | | Current git branch |
+| `sourceBranch` | `VRT_SOURCEBRANCH` | no | project's main branch | Branch to take baselines from while `branchName` has none of its own |
+| `ciBuildId` | `VRT_CIBUILDID` | no | | ID of one CI build; machines with the same ID share a build |
+| `enableSoftAssert` | `VRT_ENABLESOFTASSERT` | no | `false` | Log failed comparisons instead of failing the step |
+
 
 Add the helper next to your browser helper in `codecept.conf.js` (or `.ts`):
 
@@ -140,9 +154,45 @@ Scenario("home page", ({ I }) => {
 | `retryCount` | Retries while the result is unresolved, default 2 |
 
 Screenshots are uploaded as multipart, so the server's `BODY_PARSER_JSON_LIMIT`
-does not apply to them. A new or unresolved result fails the step, or is only
-logged with `enableSoftAssert`.
+does not apply to them.
+
+## Results and statuses
+
+`vrtTrack` resolves to sdk-js's `TestRunResult`:
+
+- `testRunResponse` holds the server's answer, including `id`, `status` and `url`.
+- `imageUrl`, `diffUrl` and `baselineUrl` link to the images.
+
+| Status | Outcome |
+| --- | --- |
+| `new` | No baseline yet: fails the step, or logs with `enableSoftAssert` |
+| `unresolved` | Differs from the baseline: fails the step, or logs with `enableSoftAssert` |
+| `ok`, `approved`, `autoApproved` | Passes |
+| `failed` | A reviewer rejected it: passes with a warning |
+| anything else | Passes with a warning |
+
+## Errors
+
+Request errors name the HTTP status and the server's message, and add a hint for common causes, such as a wrong `apiKey` (401) or an image over the server's limits (413, 422). See [sdk-js](https://github.com/Visual-Regression-Tracker/sdk-js#errors).
 
 ## Examples
 
-https://github.com/Visual-Regression-Tracker/examples-js
+[examples-js](https://github.com/Visual-Regression-Tracker/examples-js)
+
+## Releasing
+
+Every push to `master` runs [semantic-release](https://semantic-release.gitbook.io). It reads the [Conventional Commits](https://www.conventionalcommits.org) since the last `v*` tag:
+
+| Commit | Release |
+| --- | --- |
+| `fix:` | patch |
+| `feat:` | minor |
+| `feat!:` or a `BREAKING CHANGE:` footer | major |
+| `chore:`, `ci:`, `docs:`, `test:` | none |
+
+It then publishes to npm through trusted publishing with provenance, tags `vX.Y.Z`, and writes the GitHub release.
+The `version` field in `package.json` is a placeholder. The released version lives in the tags and on npm.
+
+## License
+
+[Apache-2.0](LICENSE)
