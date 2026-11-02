@@ -1,38 +1,63 @@
 {
   "name": "@visual-regression-tracker/agent-codeceptjs",
-  "version": "4.6.1",
-  "description": "Custom helper to integrate CondeceptJS with Visual Regression Tracker",
+  "version": "0.0.0-development",
+  "description": "CodeceptJS helper for Visual Regression Tracker",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "tsc",
     "test": "jest",
-    "build": "./node_modules/.bin/tsc"
+    "test:cov": "jest --collectCoverage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Visual-Regression-Tracker/agent-codeceptjs.git"
   },
   "keywords": [
-    "codeceptJS",
     "codeceptjs",
+    "visual-regression",
     "visual-regression-tracker"
   ],
   "author": "Pavel Strunkin",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Visual-Regression-Tracker/agent-codeceptjs/issues"
   },
   "homepage": "https://github.com/Visual-Regression-Tracker/agent-codeceptjs#readme",
-  "devDependencies": {
-    "@types/jest": "^26.0.16",
-    "@types/node": "^16.6.1",
-    "codeceptjs": "^2.6.11",
-    "jest": "^26.6.3",
-    "playwright": "^1.6.1",
-    "ts-jest": "^26.4.4",
-    "typescript": "^4.1.2"
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "peerDependencies": {
+    "codeceptjs": "^3.7.0 || ^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "codeceptjs": {
+      "optional": true
+    }
   },
   "dependencies": {
-    "@visual-regression-tracker/sdk-js": "^4.6.2"
+    "@codeceptjs/helper": "^2.0.4",
+    "@visual-regression-tracker/sdk-js": "^5.8.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.20.5",
+    "jest": "^30.5.2",
+    "ts-jest": "^29.4.15",
+    "typescript": "^6.0.3"
+  },
+  "release": {
+    "preset": "conventionalcommits"
+  },
+  "overrides": {
+    "glob": "^14.0.2",
+    "minimatch": "^11.0.1"
   }
 }

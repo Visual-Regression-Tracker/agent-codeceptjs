@@ -1,11 +1,27 @@
-import { IgnoreArea } from "@visual-regression-tracker/sdk-js";
+import { Config, TestRunBuffer } from "@visual-regression-tracker/sdk-js";
 
-export interface TrackOptions {
-  diffTollerancePercent?: number;
-  os?: string;
-  browser?: string;
-  viewport?: string;
-  device?: string;
+export interface HelperConfig extends Partial<Config> {
+  require?: string;
+}
+
+export interface TrackOptions extends Omit<
+  TestRunBuffer,
+  "name" | "imageBuffer"
+> {
   fullScreen?: boolean;
-  ignoreAreas?: IgnoreArea[];
+  retryCount?: number;
+}
+
+export interface PageHelper {
+  page: {
+    screenshot(options: {
+      fullPage?: boolean;
+      type: "png";
+    }): Promise<Uint8Array>;
+  };
+  options?: { fullPageScreenshots?: boolean };
+}
+
+export interface WebDriverHelper {
+  saveScreenshot(fileName: string, fullPage?: boolean): Promise<unknown>;
 }
