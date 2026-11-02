@@ -1,6 +1,6 @@
 {
   "name": "@visual-regression-tracker/agent-codeceptjs",
-  "version": "4.6.1",
+  "version": "0.0.0-development",
   "description": "CodeceptJS helper for Visual Regression Tracker",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,13 +22,13 @@
     "visual-regression-tracker"
   ],
   "author": "Pavel Strunkin",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Visual-Regression-Tracker/agent-codeceptjs/issues"
   },
   "homepage": "https://github.com/Visual-Regression-Tracker/agent-codeceptjs#readme",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "publishConfig": {
     "access": "public",
@@ -44,36 +44,20 @@
   },
   "dependencies": {
     "@codeceptjs/helper": "^2.0.4",
-    "@visual-regression-tracker/sdk-js": "^5.8.0"
+    "@visual-regression-tracker/sdk-js": "^5.8.1"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^22.20.5",
-    "conventional-changelog-conventionalcommits": "^9.3.1",
     "jest": "^30.5.2",
-    "semantic-release": "^25.0.9",
     "ts-jest": "^29.4.15",
     "typescript": "^6.0.3"
   },
   "release": {
-    "branches": [
-      "master"
-    ],
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "conventionalcommits"
-        }
-      ],
-      [
-        "@semantic-release/release-notes-generator",
-        {
-          "preset": "conventionalcommits"
-        }
-      ],
-      "@semantic-release/npm",
-      "@semantic-release/github"
-    ]
+    "preset": "conventionalcommits"
+  },
+  "overrides": {
+    "glob": "^14.0.2",
+    "minimatch": "^11.0.1"
   }
 }
