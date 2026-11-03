@@ -6,8 +6,8 @@ Adds `I.vrtStart()`, `I.vrtTrack()` and `I.vrtStop()` to [CodeceptJS](https://co
 
 ## Requirements
 
-- CodeceptJS 3.7+ or 4 (CodeceptJS 4 needs Node.js 22.12+)
-- Node.js 22 or later
+- CodeceptJS 3.7+ or 4
+- Node.js 26 or later
 - One of the Playwright, Puppeteer, WebDriver or Appium helpers
 - Visual Regression Tracker server 5.0.8 or later; 6 is recommended
 
