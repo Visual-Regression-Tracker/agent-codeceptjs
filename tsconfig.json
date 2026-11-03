@@ -8,7 +8,7 @@
     "skipLibCheck": true,
     "rootDir": "./lib",
     "outDir": "./dist",
-    "types": ["node", "jest"]
+    "types": ["node", "vitest/globals"]
   },
   "include": ["lib/**/*"],
   "exclude": ["**/*.spec.*"]
