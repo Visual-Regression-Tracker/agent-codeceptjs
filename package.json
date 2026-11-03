@@ -54,6 +54,13 @@
     "typescript": "^6.0.3"
   },
   "release": {
+    "branches": [
+      "master",
+      {
+        "name": "next",
+        "prerelease": "rc"
+      }
+    ],
     "preset": "conventionalcommits"
   },
   "overrides": {
