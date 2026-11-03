@@ -2,13 +2,17 @@ import { existsSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
 import * as sdk from "@visual-regression-tracker/sdk-js";
 import VisualRegressionTrackerHelper from "./index";
+import type { Mock } from "vitest";
 
-jest.mock("@visual-regression-tracker/sdk-js");
+vi.mock("@visual-regression-tracker/sdk-js");
 
 const { VisualRegressionTracker } = sdk;
-const actualSdk = jest.requireActual<typeof sdk>(
-  "@visual-regression-tracker/sdk-js",
-);
+let actualSdk: typeof sdk;
+beforeAll(async () => {
+  actualSdk = await vi.importActual<typeof sdk>(
+    "@visual-regression-tracker/sdk-js",
+  );
+});
 
 const config = {
   apiUrl: "http://localhost:4200",
@@ -23,11 +27,11 @@ const INIT_ENV = process.env;
 let helpers: Record<string, unknown>;
 
 beforeEach(() => {
-  jest.resetAllMocks();
-  jest
+  vi.resetAllMocks();
+  vi
     .mocked(sdk.readConfigFromFile)
     .mockImplementation(actualSdk.readConfigFromFile);
-  jest
+  vi
     .mocked(sdk.readConfigFromEnv)
     .mockImplementation(actualSdk.readConfigFromEnv);
   process.env = {};
@@ -110,7 +114,7 @@ describe("constructor", () => {
 describe("build", () => {
   it("vrtStart starts the build", async () => {
     const build = { id: "build" };
-    jest
+    vi
       .mocked(VisualRegressionTracker.prototype.start)
       .mockResolvedValue(build as any);
 
@@ -128,7 +132,7 @@ describe("build", () => {
 
 describe("vrtTrack", () => {
   const pageHelper = (options?: object) => ({
-    page: { screenshot: jest.fn().mockResolvedValue(new Uint8Array(image)) },
+    page: { screenshot: vi.fn().mockResolvedValue(new Uint8Array(image)) },
     options,
   });
 
@@ -136,7 +140,7 @@ describe("vrtTrack", () => {
     const playwright = pageHelper();
     helpers.Playwright = playwright;
     const result = { testRunResponse: { status: "ok" } };
-    jest
+    vi
       .mocked(VisualRegressionTracker.prototype.track)
       .mockResolvedValue(result as any);
     const testRun = {
@@ -201,7 +205,7 @@ describe("vrtTrack", () => {
 
   it("propagates errors from sdk-js", async () => {
     helpers.Playwright = pageHelper();
-    jest
+    vi
       .mocked(VisualRegressionTracker.prototype.track)
       .mockRejectedValue(new Error("Difference found"));
 
@@ -212,11 +216,11 @@ describe("vrtTrack", () => {
 
   describe.each(["WebDriver", "Appium"])("with %s", (name) => {
     let file: string;
-    let saveScreenshot: jest.Mock;
+    let saveScreenshot: Mock;
 
     beforeEach(() => {
       file = "";
-      saveScreenshot = jest.fn(async (fileName: string) => {
+      saveScreenshot = vi.fn(async (fileName: string) => {
         file = fileName;
         await writeFile(fileName, image);
       });
@@ -225,7 +229,7 @@ describe("vrtTrack", () => {
 
     it("tracks the saved screenshot file and removes it", async () => {
       let tracked: Buffer | undefined;
-      jest
+      vi
         .mocked(VisualRegressionTracker.prototype.track)
         .mockImplementation(async (test) => {
           tracked = await readFile((test as sdk.TestRunMultipart).imagePath);
@@ -246,7 +250,7 @@ describe("vrtTrack", () => {
     });
 
     it("removes the screenshot file when tracking fails", async () => {
-      jest
+      vi
         .mocked(VisualRegressionTracker.prototype.track)
         .mockRejectedValue(new Error("boom"));
 
